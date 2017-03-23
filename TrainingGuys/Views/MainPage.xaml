@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+	xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms" 
+	xmlns:local="clr-namespace:TrainingGuys;assembly=TrainingGuys"  	
+	prism:ViewModelLocator.AutowireViewModel="True" 
+	
+	x:Class="TrainingGuys.Views.MainPage" Title="MainPage">
+	
+
+<!--		<Label Text="{Binding Title}" />-->
+
+	<ContentPage.ToolbarItems>	    
+		<ToolbarItem Name="" Text="RELOAD" Order="Primary" Priority="1" Command="{Binding ReloadGuys}" />
+  	</ContentPage.ToolbarItems>	
+  	  		
+	<ContentPage.Content>
+		<Grid 
+			HeightRequest="{x:Static local:AppConstants.ScreenHeight}"
+			ColumnSpacing="0"
+		    RowSpacing="0"			
+			HorizontalOptions="FillAndExpand">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="150"/>
+				<RowDefinition Height=".8*"/>
+			</Grid.RowDefinitions>
+			<StackLayout
+				Padding="0,3,0,10"
+				Grid.Row="0"
+				Spacing="4">
+				<Entry
+					Placeholder="Guy Name"
+					Text="{Binding NewGuyName}" />
+				<Entry
+					Placeholder="Guy Training"
+					Text="{Binding NewGuyTraining}" />				
+
+				<Button 
+					Command="{Binding CreateGuy}"
+					Text="CREATE GUY"/>
+			</StackLayout>
+			<ListView 
+				Margin="0,10,0,0"
+				Grid.Row="1"
+				ItemsSource="{Binding VisibleGuys}">
+		        <ListView.ItemTemplate>
+		            <DataTemplate>
+		                <TextCell 									
+							Text="{Binding Name}"
+						   	Detail="{Binding Training}"
+							TextColor="White"
+						 	DetailColor="Lime"/>
+		            </DataTemplate>
+		        </ListView.ItemTemplate>				
+				
+ 
+			</ListView>
+			
+			
+		</Grid>
+		
+	</ContentPage.Content>
+	
+</ContentPage>
