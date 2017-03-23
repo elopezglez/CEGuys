@@ -8,4 +8,4 @@ Credentials for login to my personal site http://ketser.azurewebsites.net are no
 please create your own and your own DB.
 
 Some bad practices are used in this sample dont scare about it :)
-but feel free to improve it to your own benefit
+but feel free to improve it to your own benefit.
