@@ -16,11 +16,6 @@
 			Text="NAVIGATE" 
 			Command="{Binding NavigateCommand}"	/>
 
-
-		<Button  
-			Text="SEND A MESSAGE WITH XF" 
-			Command="{Binding MessageWithXFCommand}"	/>
-
 		
 	</StackLayout>
 	
