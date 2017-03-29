@@ -21,8 +21,9 @@
 		    RowSpacing="0"			
 			HorizontalOptions="FillAndExpand">
 			<Grid.RowDefinitions>
-				<RowDefinition Height="150"/>
-				<RowDefinition Height=".8*"/>
+				<RowDefinition Height=".2*"/>
+				<RowDefinition Height=".5*"/>
+				<RowDefinition Height=".3*"/>
 			</Grid.RowDefinitions>
 			<StackLayout
 				Padding="0,3,0,10"
@@ -51,10 +52,24 @@
 							TextColor="White"
 						 	DetailColor="Lime"/>
 		            </DataTemplate>
-		        </ListView.ItemTemplate>				
-				
- 
+		        </ListView.ItemTemplate>								 
 			</ListView>
+
+			<StackLayout Grid.Row="2">
+
+				<Switch  IsToggled="{Binding IsEnabled}" />
+				<Button  
+					Text="NAVIGATE" 
+					Command="{Binding NavigateCommand}"	/>
+
+				<Button  
+					Text="SEND MESSAGE" 
+					Command="{Binding SubscribeCommand}"	/>
+
+
+				<Entry  Text="{Binding Param}" />
+				
+			</StackLayout>
 			
 			
 		</Grid>

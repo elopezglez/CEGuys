@@ -8,12 +8,22 @@ using System.Collections.ObjectModel;
 using Xamarin.Forms;
 using Acr.UserDialogs;
 using System.Diagnostics;
+using Prism.Events;
 
 namespace TrainingGuys.ViewModels
 {
 	public class MainPageViewModel : BindableBase, INavigationAware
 	{
+		INavigationService _navigationService;
 		IUserDialogs _userDialogs = UserDialogs.Instance;
+
+		string _Param;
+		public string Param
+		{
+			get { return _Param; }
+			set { SetProperty(ref _Param, value); }
+		}
+
 		private string _title;
 		public string Title
 		{
@@ -21,6 +31,13 @@ namespace TrainingGuys.ViewModels
 			set { SetProperty(ref _title, value); }
 		}
 
+
+		bool _IsEnabled = false;
+		public bool IsEnabled
+		{
+			get { return _IsEnabled; }
+			set { SetProperty(ref _IsEnabled, value); }
+		}
 
 		ObservableCollection<CEGuy> _VisibleGuys = new ObservableCollection<CEGuy>();
 		public ObservableCollection<CEGuy> VisibleGuys
@@ -54,12 +71,29 @@ namespace TrainingGuys.ViewModels
 
 		public DelegateCommand CreateGuy { get; set; }
 		public DelegateCommand ReloadGuys { get; set; }
+		public DelegateCommand NavigateCommand { get; private set; }
+		public DelegateCommand SubscribeCommand { get; private set; }
 
 		AzureService azureSvc;
-		public MainPageViewModel()
-		{			
+		IEventAggregator _ea;
+		public MainPageViewModel(INavigationService navigationService, IEventAggregator ea)
+		{
+			_ea = ea;
+			_navigationService = navigationService;
 			CreateGuy = new DelegateCommand(AddGuy);
 			ReloadGuys = new DelegateCommand(GetGuys);
+			NavigateCommand = new DelegateCommand(Navigate).ObservesCanExecute((p) => IsEnabled);
+			SubscribeCommand = new DelegateCommand(PublishEvent);		
+		}
+
+		void Navigate()
+		{
+			_navigationService.NavigateAsync("ViewB");
+		}
+
+		void PublishEvent()
+		{
+			_ea.GetEvent<PrismEvent>().Publish(Param);
 		}
 
 		async void AddGuy()
@@ -99,8 +133,7 @@ namespace TrainingGuys.ViewModels
 
 		public void OnNavigatedTo(NavigationParameters parameters)
 		{
-			if (parameters.ContainsKey("title"))
-				Title = (string)parameters["title"] + " and Prism";
+
 		}
 	}
 }

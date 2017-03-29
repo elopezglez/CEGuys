@@ -32,6 +32,9 @@ namespace TrainingGuys
 		protected override void RegisterTypes()
 		{
 			Container.RegisterTypeForNavigation<MainPage>();
+			Container.RegisterTypeForNavigation<ViewA>();
+			Container.RegisterTypeForNavigation<ViewB>();
+
 		}
 	}
 }
